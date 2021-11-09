@@ -67,7 +67,8 @@ class _AppBarWidge extends State<AppBarWidge>
         44,
         52,
         65,
-        1 - widget._opacity);
+        1);
+    // - widget._opacity
     return Positioned(
         top: 0,
         left: 0,
@@ -134,7 +135,7 @@ class _AppBarWidge extends State<AppBarWidge>
                                   size: ScreenApdar.setFontSize(20),
                                   color: ComponentStyle.AVERAGE_COLOR),
                             ),
-                            Expanded(
+                          /*  Expanded(
                               flex: 12,
                               child:Container(
                                 padding:EdgeInsets.only(top:ScreenApdar.setHeight(3),left:ScreenApdar.setWidth(10) ),
@@ -148,6 +149,12 @@ class _AppBarWidge extends State<AppBarWidge>
                                               decoration: TextDecoration.none,
                                               fontSize:ScreenApdar.setFontSize(16.0) ));
                                     }),
+                              ), */
+                              Expanded(
+                              flex: 12,
+                              child:Container(
+                                padding:EdgeInsets.only(top:ScreenApdar.setHeight(3),left:ScreenApdar.setWidth(10) ),
+                                child: Text('${widget._searchRight}'),
                               ),
 
 

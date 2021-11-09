@@ -45,9 +45,11 @@ dev_dependencies:
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
   flutter_lints: ^1.0.0
-  permission_handler: any
+  permission_handler: 5.1.0
   provider: any
   flutter_screenutil: any
+  webview_flutter: 1.0.7
+  url_launcher: 5.7.10
   event_bus: any
   flutter_svg: 0.23.0
 

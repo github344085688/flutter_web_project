@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import 'package:flutter_web_project/page/page1.dart';
 import 'package:flutter_web_project/page/home_page/small_home_init/index.dart';
 import 'package:flutter_web_project/page/home_page/home_page.dart';
@@ -32,7 +31,7 @@ class NavigatorKey {
     switch (routerName) {
       case '/index':
         {
-          return Page1();
+          return WebViewExample();
         }
     }
 

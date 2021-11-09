@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter/foundation.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:flutter_web_project/provider/provider_date.dart';
 import 'package:flutter_web_project/main_config/keys.dart';
@@ -16,20 +17,19 @@ final List<Permission> needPermissionList = [
 ];
 
 class MainConfig extends StatelessWidget {
-  final bool? isWeb;
-  const MainConfig({Key? key,  this.isWeb}) : super(key: key);
+
+  const MainConfig({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) => MultiProvider(
-    providers: [ChangeNotifierProvider.value(value: ProviderDate(isWeb:isWeb))],
-    child: _InitMainWiget(isWeb:isWeb),
+    providers: [ChangeNotifierProvider.value(value: ProviderDate())],
+    child: _InitMainWiget(),
   );
 }
 
 
 class _InitMainWiget extends StatefulWidget {
-  final bool? isWeb;
-  _InitMainWiget({Key? key,this.isWeb}) : super(key: key);
+  _InitMainWiget({Key? key}) : super(key: key);
 
   @override
   _MyMainAppState createState() => _MyMainAppState();
@@ -41,13 +41,13 @@ class _MyMainAppState extends State<_InitMainWiget>{
   @override
   void initState() {
     super.initState();
-    if(widget.isWeb == false) _checkPermissions();
+    if(!kIsWeb) _checkPermissions();
   }
 
   @override
   void reassemble() {
     super.reassemble();
-    if(widget.isWeb == false) _checkPermissions();
+    if(!kIsWeb) _checkPermissions();
   }
 
   void _checkPermissions() async {
@@ -62,7 +62,7 @@ class _MyMainAppState extends State<_InitMainWiget>{
   Widget build(BuildContext context) {
     var  _navigatorKey = NavigatorKey();
     return ScreenUtilInit(
-        designSize: Size(1440, 960),
+        designSize: Size(360, 690),
         builder: () => MaterialApp(
           navigatorKey: NominalKeys.MaterialAppKey,
           title: 'My Main App Flutter',

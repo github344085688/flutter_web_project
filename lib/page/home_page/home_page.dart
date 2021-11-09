@@ -12,7 +12,7 @@ import 'package:flutter_web_project/style/style.dart';
 import 'package:flutter_web_project/page/home_page/app_bar_widget/app_bar_widge.dart';
 import 'package:flutter_web_project/page/home_page/app_bar_widget/web_app_bar_widget.dart';
 import 'package:flutter/foundation.dart';
-
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
 
@@ -23,6 +23,36 @@ class HomePage extends StatefulWidget {
 class _HomePage extends State<HomePage> {
   late int _privatecurrentIndex = 0;
   late int _currentIndex = 0;
+  late double _initBarHeight = 85;
+  late  double _searchRight = 0;
+  late  double _searchButtom = -12.0;
+  late double _setBarHeight = 57.9;
+  late double _opacity = 1.0;
+  late double _toolbarHeight = 85;
+  late double _appBarOpacity = 1;
+  late double _expandedHeight = 90;
+  late int currentIndex = 0;
+  late int _swiperChangedIndex = 0;
+  late  bool _isPhysics = false;
+  late  bool _isScroll = false;
+/*  late double _initBarHeight = 85;
+  late double _searchRight = 0;
+  late double _searchButtom = -12.0;
+ late double _setBarHeight;
+  late double _opacity = 1.0;
+  late double _toolbarHeight;
+  late double _appBarOpacity = 1;
+  late double _expandedHeight;*/
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    /*_setBarHeight = 48.h;
+    _toolbarHeight = 56.h;
+    _expandedHeight = 85.h;
+    _searchRight = 0;*/
+    super.initState();
+  }
   final List<MyPage> _pages = <MyPage>[
     MyPage(
         name: 'MainPage000',
@@ -114,14 +144,7 @@ class _HomePage extends State<HomePage> {
   //
   // }
 
-  double _initBarHeight = 85;
-  double _searchRight = 0;
-  double _searchButtom = -12.0;
-  double _setBarHeight = 57.9;
-  double _opacity = 1.0;
-  double _toolbarHeight = 85;
-  double _appBarOpacity = 1;
-  double _expandedHeight = 90;
+
 
   void _onSearchButtom() async {
     /*  final String selected = await showSearch<String>(
