@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_web_project/page/page1.dart';
+import 'package:flutter_web_project/main_config/local_navigator.dart';
 import 'package:flutter_web_project/page/home_page/small_home_init/index.dart';
 import 'package:flutter_web_project/page/home_page/home_page.dart';
 import 'package:flutter_web_project/util/widget_responsive.dart';
+import 'package:flutter_web_project/page/home_page/init_home_page.dart';
 
 class NavigatorKey {
   NavigatorKey();
@@ -10,6 +12,7 @@ class NavigatorKey {
         // '/': (context) => NewPage(),
         '/': (context) => WidgetResponsive.isSmallScreen(context)
             ? SplashPage()
+            // ?LocalNavigator()
             : HomePage(),
       '/index': (context) => HomePage(),
        /*
@@ -31,8 +34,14 @@ class NavigatorKey {
     switch (routerName) {
       case '/index':
         {
+          return InitHomePage();
+        }
+        break;
+      case '/webViewExample':
+        {
           return WebViewExample();
         }
+        break;
     }
 
   }

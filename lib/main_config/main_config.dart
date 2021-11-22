@@ -54,7 +54,7 @@ class _MyMainAppState extends State<_InitMainWiget>{
     Map<Permission, PermissionStatus> statuses =
     await needPermissionList.request();
     statuses.forEach((key, value) {
-      print('$key ============--------------------- is $value');
+      // print('$key ============--------------------- is $value');
     });
   }
 
@@ -74,11 +74,11 @@ class _MyMainAppState extends State<_InitMainWiget>{
             dividerColor: ComponentStyle.ACCENT_COLOR,
             splashFactory: const NoSplashFactory(),
             textTheme: TextTheme(
-                bodyText1: TextStyle(color: ComponentStyle.INDICATOR_COLOR,fontSize: 16.sp),
+                bodyText1: TextStyle(color: ComponentStyle.INDICATOR_COLOR,fontSize: 14.sp),
                 headline6: TextStyle(  color: Colors.green),
-                bodyText2: TextStyle(  color: Colors.black54, fontSize: 16.sp),
+                bodyText2: TextStyle(  color: Colors.black54, fontSize: 14.sp),
                 overline: TextStyle(  color: Colors.green),
-                button: TextStyle(fontSize: 16.sp)
+                button: TextStyle(fontSize: 14.sp)
             ),
           ),
           // home: Page1(),

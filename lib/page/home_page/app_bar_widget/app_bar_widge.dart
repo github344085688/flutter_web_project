@@ -63,11 +63,12 @@ class _AppBarWidge extends State<AppBarWidge>
   @override
   Widget build(BuildContext context) {
     Color _searchBg = ComponentStyle.TITLE_TEXT_COLOR;
-    Color _appBarBg = Color.fromRGBO(
+ /*   Color _appBarBg = Color.fromRGBO(
         44,
         52,
         65,
-        1);
+        1); */
+    Color _appBarBg = ComponentStyle.MALL_FOCUS_BG;
     // - widget._opacity
     return Positioned(
         top: 0,

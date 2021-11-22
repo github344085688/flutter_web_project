@@ -49,9 +49,12 @@ dev_dependencies:
   provider: any
   flutter_screenutil: any
   webview_flutter: 1.0.7
+  flutter_webview_plugin: 0.3.11
   url_launcher: 5.7.10
   event_bus: any
   flutter_svg: 0.23.0
+  pull_to_refresh: 1.6.5
+#  fluwx: 2.6.2
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

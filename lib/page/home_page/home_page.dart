@@ -2,17 +2,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_web_project/main_config/keys.dart';
 import 'package:flutter_web_project/util/size_config.dart';
-import 'package:flutter_web_project/util/screenApdar.dart';
-// import 'package:flutter_web_project/util/screen_utils.dart';
 import 'package:flutter_web_project/routers/router.dart';
 import 'package:flutter_web_project/util/no_animation_transition_delegate.dart';
-import 'package:flutter_web_project/page/home_page/bottom_navigation/bottom_navigation_view.dart';
-import 'package:flutter_web_project/util/widget_responsive.dart';
-import 'package:flutter_web_project/style/style.dart';
-import 'package:flutter_web_project/page/home_page/app_bar_widget/app_bar_widge.dart';
-import 'package:flutter_web_project/page/home_page/app_bar_widget/web_app_bar_widget.dart';
 import 'package:flutter/foundation.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
 
@@ -23,36 +16,13 @@ class HomePage extends StatefulWidget {
 class _HomePage extends State<HomePage> {
   late int _privatecurrentIndex = 0;
   late int _currentIndex = 0;
-  late double _initBarHeight = 85;
-  late  double _searchRight = 0;
-  late  double _searchButtom = -12.0;
-  late double _setBarHeight = 57.9;
-  late double _opacity = 1.0;
-  late double _toolbarHeight = 85;
-  late double _appBarOpacity = 1;
-  late double _expandedHeight = 90;
   late int currentIndex = 0;
-  late int _swiperChangedIndex = 0;
-  late  bool _isPhysics = false;
-  late  bool _isScroll = false;
-/*  late double _initBarHeight = 85;
-  late double _searchRight = 0;
-  late double _searchButtom = -12.0;
- late double _setBarHeight;
-  late double _opacity = 1.0;
-  late double _toolbarHeight;
-  late double _appBarOpacity = 1;
-  late double _expandedHeight;*/
 
   @override
   void initState() {
-    // TODO: implement initState
-    /*_setBarHeight = 48.h;
-    _toolbarHeight = 56.h;
-    _expandedHeight = 85.h;
-    _searchRight = 0;*/
     super.initState();
   }
+
   final List<MyPage> _pages = <MyPage>[
     MyPage(
         name: 'MainPage000',
@@ -79,8 +49,7 @@ class _HomePage extends State<HomePage> {
   }
 
   _conterollercurrentIndex(BuildContext context, int changedIndex) {
-    // print(changedIndex);
-    // if (_privatecurrentIndex == changedIndex) return;
+
     switch (changedIndex) {
       case 0:
         {
@@ -96,6 +65,7 @@ class _HomePage extends State<HomePage> {
       case 2:
         {
           _pages.removeRange(1, _pages.length);
+          // _WebViewcontroller.evaluateJavascript('flutterCallJsMethod("msg from flutter")');
           /*   _pages.add(
          MyPage(
              name: 'MainPage3',
@@ -139,27 +109,6 @@ class _HomePage extends State<HomePage> {
 
 
 
-  // _buildLargeScreenActions(BuildContext context) {
-  //   return
-  //
-  // }
-
-
-
-  void _onSearchButtom() async {
-    /*  final String selected = await showSearch<String>(
-      context: context,
-      delegate: _delegate,
-    );
-    if (selected != null) {
-      Scaffold.of(context).showSnackBar(
-        SnackBar(
-          content: Text('You have selected the aaa: $selected'),
-        ),
-      );
-    }*/
-  }
-
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
@@ -180,6 +129,10 @@ class _HomePage extends State<HomePage> {
         return false;
       },
       child: Stack(children: [
+        /*    Positioned(
+          top:_expandedHeight,
+          child:Text('sssssaaaaaaaaaaaaaaaaaasssssssss') ,
+        ),*/
         Scaffold(
           /*   appBar: WidgetResponsive.isSmallScreen(context)
                     ? null
@@ -205,24 +158,7 @@ class _HomePage extends State<HomePage> {
               return false;
             },
           ),
-          bottomNavigationBar: WidgetResponsive.isSmallScreen(context)
-              ? BottomNavigationView(
-                  currentIndex: _privatecurrentIndex,
-                  setActivity: (currentIndex) =>
-                      _conterollercurrentIndex(context, currentIndex))
-              : null,
         ),
-        WidgetResponsive.isSmallScreen(context)
-            ? AppBarWidge(
-                setBarHeight: _setBarHeight,
-                toolbarHeight: _toolbarHeight,
-                searchRight: _searchRight,
-                searchButtom: _searchButtom,
-                opacity: _opacity,
-                expandedHeight: _expandedHeight,
-                appBarOpacity: _appBarOpacity,
-                onSearchButtom: () => _onSearchButtom())
-            : WebPageWidget.WebAppBarWidget(context),
       ]),
     );
   }
