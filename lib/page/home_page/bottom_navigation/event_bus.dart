@@ -4,6 +4,5 @@ EventBus eventBus = new EventBus();
 
 class MyEvent {
   int index;
-
   MyEvent(this.index);
 }

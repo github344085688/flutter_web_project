@@ -1,19 +1,30 @@
 import 'dart:io';
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 import 'package:flutter_web_project/util/screenApdar.dart';
 import 'package:flutter_web_project/servers/js_bridge_util.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_web_project/bus_events/bus_events.dart' show RefreshWeb,eventBus,RefreshWebFinished;
 import 'dart:convert';
 
-class WebViewExample extends StatefulWidget {
+class WebViewPage extends StatefulWidget {
+  late double _appBarHeigh;
+  WebViewPage({
+    Key? key,
+    double appBarHeight: 78,
+  })  : _appBarHeigh = appBarHeight,
+        super(key: key);
   @override
-  WebViewExampleState createState() => WebViewExampleState();
+  WebViewPageState createState() => WebViewPageState();
 }
 
-class WebViewExampleState extends State<WebViewExample> {
+class WebViewPageState extends State<WebViewPage> {
   @override
   void initState() {
+    eventBus.on<RefreshWeb>().listen((event) {
+      _controller.reload();
+    });
     super.initState();
     // Enable hybrid composition.
     if (Platform.isAndroid) WebView.platform = SurfaceAndroidWebView();
@@ -22,25 +33,14 @@ class WebViewExampleState extends State<WebViewExample> {
   late WebViewController _controller;
   String _title = "webview";
   late double _height = 0;
-
-  void reloadWebView() {
-    _controller.reload();
-  }
-
   @override
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: <Widget>[
-             Container(
-              height: 90,
-            ),
-        // ElevatedButton(
-        //   child: Text("normal"),
-        //   onPressed: () {
-        //     reloadWebView();
-        //   },
-        // ),
+        Container(
+          height: widget._appBarHeigh,
+        ),
         Container(
             height: _height,
             width: double.infinity,
@@ -51,14 +51,13 @@ class WebViewExampleState extends State<WebViewExample> {
                 _controller = controller;
               },
               onPageFinished: (url) {
-                print("高度 ssssssssssssssss");
                 _controller
                     .evaluateJavascript("document.body.clientHeight")
                     .then((result) {
+                  eventBus.fire(RefreshWebFinished(true));
                   setState(() {
                     _title = result;
                     _height = double.parse(result) + 151.0;
-                    print("高度${double.parse(result)}");
                   });
                 });
               },

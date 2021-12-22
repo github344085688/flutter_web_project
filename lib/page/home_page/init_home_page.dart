@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -5,10 +7,19 @@ import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:flutter_web_project/page/home_page/two_level_widget.dart';
 import 'package:flutter_web_project/page/home_page/app_bar_widget/app_bar_widge.dart';
 import 'package:flutter_web_project/routers/router.dart';
+import 'package:flutter_web_project/bus_events/bus_events.dart' show RefreshWeb,eventBus,RefreshWebFinished;
+import 'package:event_bus/event_bus.dart';
+import 'package:flutter_web_project/style/style.dart';
 import 'package:flutter_web_project/util/screenApdar.dart';
 
 class InitHomePage extends StatefulWidget {
-  const InitHomePage({Key? key}) : super(key: key);
+  late double _appBarHeight;
+
+  InitHomePage({
+    Key? key,
+    double appBarHeight: 90,
+  })  : _appBarHeight = appBarHeight,
+        super(key: key);
 
   @override
   _InitHomePage createState() => _InitHomePage();
@@ -22,7 +33,7 @@ class _InitHomePage extends State<InitHomePage> with TickerProviderStateMixin {
  late  double _opacity = 1.0;
  late  double _toolbarHeight = 85;
  late  double _appBarOpacity = 1;
- late  double _expandedHeight = 90;
+ late  double _expandedHeight = widget._appBarHeight;
  late  int currentIndex = 0;
  late  int _swiperChangedIndex = 0;
  late  bool _isPhysics = false;
@@ -39,10 +50,17 @@ class _InitHomePage extends State<InitHomePage> with TickerProviderStateMixin {
  late  AnimationController animationController;
  late  Animation<Color> color;
 
+ late  bool _refreshWebFinished = false;
 
 
 
   void init() async {
+    eventBus.on<RefreshWebFinished>().listen((event) {
+      final _isFinished = event.isFinished;
+      setState(() {
+        _refreshWebFinished= _isFinished;
+      });
+    });
     // var setData = await asset.get('assets/json/creads.json');
     setState(() {
       // _expandStateList = json.decode(setData);
@@ -71,16 +89,26 @@ class _InitHomePage extends State<InitHomePage> with TickerProviderStateMixin {
   }
 
   void _onRefresh() async {
-    // print('_onRefresh');
+
     setState(() {
       _isPhysics = true;
     });
-    await Future.delayed(Duration(milliseconds: 4000));
-    _isPhysics = false;
-    _refreshController.refreshCompleted();
+     eventBus.fire(RefreshWeb(true));
+     // Timer t = Timer(Duration(milliseconds: 4000));
+     if (_refreshWebFinished) {
+       print('----------------------_onRefresh');
+       _isPhysics = false;
+       _refreshController.refreshCompleted();
+     }else{
+       await Future.delayed(Duration(milliseconds: 4000));
+       print('FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF');
+       _isPhysics = false;
+       _refreshController.refreshCompleted();
+     }
   }
 
   void _onTwoLevel() {
+    print('-------on');
     setState(() {
       _appBarOpacity = 0;
     });
@@ -158,9 +186,9 @@ class _InitHomePage extends State<InitHomePage> with TickerProviderStateMixin {
           context: context,
           enableScrollWhenTwoLevel: true,
           maxOverScrollExtent: 120,
-          enableLoadingWhenFailed: true,
-          maxUnderScrollExtent: 100.0,
-          footerTriggerDistance: -45.0,
+          enableLoadingWhenFailed: false,
+          maxUnderScrollExtent: 0,
+          footerTriggerDistance: 0,
           child: LayoutBuilder(
             builder: (_, c) {
               return SmartRefresher(
@@ -168,7 +196,7 @@ class _InitHomePage extends State<InitHomePage> with TickerProviderStateMixin {
                 controller: _refreshController,
                 enableTwoLevel: true,
                 enablePullDown: true,
-                enablePullUp: true,
+                enablePullUp: false,
                 onLoading: _onLoading,
                 onRefresh: _onRefresh,
                 onTwoLevel: _onTwoLevel,
@@ -190,7 +218,7 @@ class _InitHomePage extends State<InitHomePage> with TickerProviderStateMixin {
         SliverList(
             delegate: SliverChildBuilderDelegate(
                   (BuildContext context, int index) {
-                return NavigatorKey.homeRoutes('/webViewExample');
+                return NavigatorKey.homeRoutes('/webViewPage');
               },
               childCount: 1,
             )),
@@ -213,7 +241,6 @@ class _InitHomePage extends State<InitHomePage> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    // ScreenApdar.init(context);
     return AnnotatedRegion<SystemUiOverlayStyle>(
         value: _systemUiOverlayStyle,
         child: RefreshConfiguration(
@@ -226,6 +253,7 @@ class _InitHomePage extends State<InitHomePage> with TickerProviderStateMixin {
             enableRefreshVibrate: false,
             enableLoadMoreVibrate: false,
             shouldFooterFollowWhenNotFull: (state) {
+              print('111111111');
               return false;
             },
             footerBuilder: () => ClassicFooter(),
@@ -240,7 +268,7 @@ class _InitHomePage extends State<InitHomePage> with TickerProviderStateMixin {
                     alignment: Alignment.topCenter),
               ),
               twoLevelWidget: TwoLevelWidget(setActivity: () {
-                // print('wwwwwwwwwwww');
+                 print('wwwwwwwwwwww');
               }),
             ),
             /*    headerBuilder:(BuildContext context)=>,*/

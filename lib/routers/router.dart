@@ -5,6 +5,7 @@ import 'package:flutter_web_project/page/home_page/small_home_init/index.dart';
 import 'package:flutter_web_project/page/home_page/home_page.dart';
 import 'package:flutter_web_project/util/widget_responsive.dart';
 import 'package:flutter_web_project/page/home_page/init_home_page.dart';
+import 'package:flutter_web_project/page/home_page/web_view/web_view_page.dart';
 
 class NavigatorKey {
   NavigatorKey();
@@ -37,9 +38,9 @@ class NavigatorKey {
           return InitHomePage();
         }
         break;
-      case '/webViewExample':
+      case '/webViewPage':
         {
-          return WebViewExample();
+          return WebViewPage();
         }
         break;
     }
