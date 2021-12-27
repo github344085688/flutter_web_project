@@ -35,18 +35,15 @@ class _InitHomePage extends State<InitHomePage> with TickerProviderStateMixin {
  late  double _appBarOpacity = 1;
  late  double _expandedHeight = widget._appBarHeight;
  late  int currentIndex = 0;
- late  int _swiperChangedIndex = 0;
  late  bool _isPhysics = false;
  late  bool _isScroll = false;
  late  SystemUiOverlayStyle _systemUiOverlayStyle = SystemUiOverlayStyle.dark;
- late  List _expandStateList = [];
  late  var homeComponents;
  late  ScrollController _scrollController = new ScrollController();
  late  RefreshController _refreshController = RefreshController();
  late  GlobalKey _contentKey = GlobalKey();
 
 
- late  int _recordwiperSIndex = 0;
  late  AnimationController animationController;
  late  Animation<Color> color;
 

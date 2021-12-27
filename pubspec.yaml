@@ -54,7 +54,7 @@ dev_dependencies:
   event_bus: any
   flutter_svg: 0.23.0
   pull_to_refresh: 1.6.5
-#  fluwx: 2.6.2
+  fluwx: 2.6.2
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

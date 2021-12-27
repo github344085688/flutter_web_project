@@ -80,7 +80,7 @@ class _AppBarWidge extends State<AppBarWidge>
           opacity: widget._appBarOpacity,
           child: Container(
             width: double.infinity,
-            color: _appBarBg,
+            // color: _appBarBg,
             padding: EdgeInsets.only(
                 left: ScreenApdar.setWidth(15),
                 right: ScreenApdar.setWidth(15)),

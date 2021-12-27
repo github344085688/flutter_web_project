@@ -13,7 +13,7 @@ class WebViewPage extends StatefulWidget {
   WebViewPage({
     Key? key,
     double appBarHeight: 78,
-  })  : _appBarHeigh = appBarHeight,
+  })  : _appBarHeigh = appBarHeight + 10,
         super(key: key);
   @override
   WebViewPageState createState() => WebViewPageState();
@@ -39,7 +39,7 @@ class WebViewPageState extends State<WebViewPage> {
       crossAxisAlignment: CrossAxisAlignment.center,
       children: <Widget>[
         Container(
-          height: widget._appBarHeigh,
+          // height: widget._appBarHeigh,
         ),
         Container(
             height: _height,
@@ -61,13 +61,16 @@ class WebViewPageState extends State<WebViewPage> {
                   });
                 });
               },
-              navigationDelegate: (NavigationRequest request) {
-                if (request.url.startsWith("myapp://")) {
-                  print("即将打开 ${request.url}");
-
+              navigationDelegate:(NavigationRequest request) {
+                if (request.url.startsWith('js://webview')) {
+                  // showToast('JS调用了Flutter By navigationDelegate');
+                  print('blocking navigation to $request}');
+                  // Navigator.push(context,
+                  //     new MaterialPageRoute(builder: (context) => new testNav()));
                   return NavigationDecision.prevent;
                 }
-                return NavigationDecision.navigate;
+                print('allowing navigation to $request');
+                return NavigationDecision.navigate;    //必须有
               },
               javascriptChannels: <JavascriptChannel>[
                 // _alertJavascriptChannel(context),
@@ -78,20 +81,8 @@ class WebViewPageState extends State<WebViewPage> {
     );
   }
 
-  NavigationRequest _navigationDelegate(
-      BuildContext context, NavigationRequest request, NavigationDecision) {
-    if (request.url.startsWith('js://webview')) {
-      // showToast('JS调用了Flutter By navigationDelegate');
-      print('blocking navigation to $request}');
-      // Navigator.push(context, new MaterialPageRoute(builder: (context) => new testNav()));
-      return NavigationDecision.prevent;
-    }
-    print('allowing navigation to $request');
-    return NavigationDecision.navigate; //必须有
-  }
 
-  JavascriptChannel _alertJavascriptChannel(BuildContext context) {
-    return JavascriptChannel(
+  JavascriptChannel _alertJavascriptChannel(BuildContext context) => JavascriptChannel(
         name: "appobject",
         onMessageReceived: (JavascriptMessage message) {
           print("参数： ${message.message}");
@@ -105,7 +96,7 @@ class WebViewPageState extends State<WebViewPage> {
                     });*/
           // _controller.evaluateJavascript(script);
         });
-  }
+
 
   JavascriptChannel _JsBridge(BuildContext context) => JavascriptChannel(
       name: 'appobject', // 与h5 端的一致 不然收不到消息
